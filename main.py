@@ -7,15 +7,11 @@ import requests
 load_dotenv()
 
 def main():
-    
+    # 1. Instanciamos los servicios
     w_client = WeatherClient(os.getenv("OPENWEATHER_API_KEY"))
     agent = HealthAgent(os.getenv("GROQ_API_KEY"))
-    # Prueba manual rápida
-    prueba = requests.get(f"https://api.openweathermap.org/data/2.5/air_pollution?lat=39.46&lon=-0.37&appid={os.getenv('OPENWEATHER_API_KEY')}")
-    print(f"DEBUG: Status Code recibido: {prueba.status_code}")
-    print(f"DEBUG: Contenido crudo: {prueba.text}")
-    # Valencia capital
     
+    # 2. Obtenemos datos limpios usando nuestro CLIENT y pasamos los datos al AGENT para análisis
     data = w_client.get_data("Valencia", 39.46, -0.37)
     report = agent.analyze(data)
 

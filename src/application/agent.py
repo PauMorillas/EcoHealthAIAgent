@@ -9,7 +9,14 @@ class HealthAgent:
         descriptions = {1: "Excelente", 2: "Aceptable", 3: "Baja", 4: "Mala", 5: "Muy peligrosa"}
         status = descriptions.get(data.aqi, "Desconocido")
 
-        prompt = f"Calidad del aire en {data.city}: {status}. NO2: {data.no2}. Da un consejo de salud corto para asmáticos."
+        prompt = f"""
+        Analiza la calidad del aire en {data.city}:
+        - Índice Global (AQI): {status}
+        - Niveles de NO2: {data.no2} µg/m3
+        - Niveles de O3: {data.o3} µg/m3
+        
+        Dame un consejo muy concreto para una persona con asma, mencionando los niveles de contaminantes si son altos.
+        """
         
         completion = self.client.chat.completions.create(
             messages=[{"role": "user", "content": prompt}],
