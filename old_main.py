@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv
 from src.infrastructure.weather_client import WeatherClient
 from src.application.agent import HealthAgent
-import requests
 
 load_dotenv()
 
